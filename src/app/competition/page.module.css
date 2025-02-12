@@ -2552,10 +2552,6 @@
 @media (min-width: 801px) and (max-width: 1000px) {
   .box_12 {
     width: 100%;
-    background: url(../assets/img/background_myrunes_mobile.png)
-    0 -98px no-repeat;
-    background-size: cover;
-    /* background-position: center -150px; */
   }
 
   .group_3 {
@@ -2730,9 +2726,6 @@
 
 @media (max-width: 800px) {
   .box_12 {
-    background: url(../assets/img/background_myrunes_mobile.png)
-    0 -28px no-repeat;
-    background-size: 100%;
     /* background-position: center -150px; */
   }
 
