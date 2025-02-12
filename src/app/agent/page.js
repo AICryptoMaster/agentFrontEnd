@@ -1165,7 +1165,7 @@ export default function Page() {
 
             <FormControl mt={4}>
               <FormLabel className={`${styles['form_content']}`}>Agent File</FormLabel>              
-              <Box className={`${styles['agent_file']} flex-col justify-center align-center`} onClick={uploadFile}>
+              <Box className={`${styles['agent_file']} flex-col justify-center align-center`} onClick={() => handleFileChange()}>
                 <span className={`${styles['text_agent_file']}`}>
                   Upload Agent File
                 </span>
@@ -1185,7 +1185,7 @@ export default function Page() {
 
             <FormControl mt={4}>
               <FormLabel className={`${styles['form_content']}`}>Agent Logo</FormLabel>              
-              <Box className={`${styles['agent_file']} flex-col justify-center align-center`} onClick={uploadLogo}>
+              <Box className={`${styles['agent_file']} flex-col justify-center align-center`} onClick={() => handleLogoChange()}>
                 <span className={`${styles['text_agent_file']}`}>Upload Agent Logo</span>
               </Box>
               {
