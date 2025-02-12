@@ -204,10 +204,14 @@
     .image_1 {
       width: 50px;
       height: 50px; 
-      background: url(../../assets/img/logo_mobile.png)
+      background: url(../../assets/img/logo_wizard.png)
         100% no-repeat;
       background-size: 100%;
       margin: 0 0 0 0;
+    }
+
+    .logo_name {
+      font-size: 14px;
     }
     
     .menu {

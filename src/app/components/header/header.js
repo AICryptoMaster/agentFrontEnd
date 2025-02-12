@@ -49,7 +49,7 @@ export default function Header() {
     <div className={`${styles['section_1']} flex-col align-center`}>
       <div className={`${styles['block_9']} flex-row justify-between align-center`}>
         <div className={`flex-row align-center`}>
-          <Link href="/" rel="noopener noreferrer">     
+          <Link href="/" rel="noopener noreferrer" style={{textDecoration: 'none'}}>     
             <div className="flex-col align-center">
               <div
                 className={`${styles['image_1']}`}
@@ -61,12 +61,12 @@ export default function Header() {
 
         <div className={`${styles['menu']} flex-row justify-around align-center`}>
           <span className={`${styles[pathname.includes('agent') ? 'agent_selected' : 'agent']}`}>
-            <Link href="/agent" rel="noopener noreferrer">   
+            <Link href="/agent" rel="noopener noreferrer" style={{textDecoration: 'none'}}>   
               Agent
             </Link>
           </span>
           <span className={`${styles[pathname.includes('asset') ? 'asset_selected' : 'asset']}`}>
-            <Link href="/asset" rel="noopener noreferrer">   
+            <Link href="/asset" rel="noopener noreferrer" style={{textDecoration: 'none'}}>   
               Assets
             </Link>
           </span>

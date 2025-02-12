@@ -157,7 +157,7 @@ export default function Page() {
   React.useEffect(() => {
     // The first asset launch platform that combines smart inscription with x314, achieving ultimate fairness and efficiency.
     const typed1 = new Typed(phase1.current, {
-      strings: [`Agent vs Agent\nAgent = Soulbound NFT\nMeme Coin Launched with Agent`],
+      strings: [`Agent ⚔️ Agent\nAgent = Soulbound NFT\nMeme Coin Launched with Agent`],
       typeSpeed: 50,
       showCursor: true,
     });
