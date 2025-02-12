@@ -142,6 +142,9 @@ export default function Page() {
   const [logoPreview, setLogoPreview] = useState('');
   const logoInputRef = useRef(null);
 
+  const [logoUrl, setLogoUrl] = useState('');
+  const [fileUrl, setFileUrl] = useState('');
+
   //console.log('#######', account, address)
   useEffect(() => {
     const checkIfMobile = () => {
@@ -709,24 +712,38 @@ export default function Page() {
     return hashHex;
   };
 
-  const uploadFile = () => {
-    fileInputRef.current.click();
-  };
+  const uploadToServer = async (file, fileType) => {
+    try {
+      const formData = new FormData();
+      formData.append('file', file);
+      formData.append('fileType', fileType);
 
-  const handleFileChange = async (event) => {
-    const file = event.target.files[0];
-    if (file) {
-      setSelectedFileName(file.name);
-      const hash = await calculateFileHash(file);
-      setHashValue(hash);      
+      const response = await fetch('/api/fileUpload', {
+        method: 'POST',
+        body: formData,
+      });
+
+      const data = await response.json();
+      
+      if (!response.ok) {
+        throw new Error(data.error || 'Upload failed');
+      }
+
+      return data.url;
+    } catch (error) {
+      console.error('Upload error:', error);
+      toast({
+        title: 'Upload Error',
+        description: error.message,
+        status: 'error',
+        position: 'bottom-right',
+        isClosable: true,
+      });
+      return null;
     }
   };
 
-  const uploadLogo = () => {
-    logoInputRef.current.click();
-  };
-
-  const handleLogoChange = (event) => {
+  const handleLogoChange = async (event) => {
     const file = event.target.files[0];
     if (file) {
       // 验证文件类型
@@ -759,6 +776,36 @@ export default function Page() {
         setLogoPreview(e.target.result);
       };
       reader.readAsDataURL(file);
+
+      // 上传到服务器
+      const logoUrl = await uploadToServer(file, 'logo');
+      if (logoUrl) {
+        // 存储 logo URL 到状态中（如果需要）
+        setLogoUrl(logoUrl);
+      }
+    }
+  };
+
+  const handleFileChange = async (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      setSelectedFileName(file.name);
+      const hash = await calculateFileHash(file);
+      setHashValue(hash);
+      
+      // 读取文件内容
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        setAgentInfo(e.target.result);
+      };
+      reader.readAsText(file);
+
+      // 上传到服务器
+      const fileUrl = await uploadToServer(file, 'content');
+      if (fileUrl) {
+        // 存储文件 URL 到状态中（如果需要）
+        setFileUrl(fileUrl);
+      }
     }
   };
 

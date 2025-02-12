@@ -28,6 +28,10 @@
     margin-left: 5px;
   }
 
+  .menu_link {
+    font-family: "Creepster", system-ui;
+  }
+
   .menu {
     width: 500px;
   }

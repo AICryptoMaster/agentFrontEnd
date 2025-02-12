@@ -61,12 +61,12 @@ export default function Header() {
 
         <div className={`${styles['menu']} flex-row justify-around align-center`}>
           <span className={`${styles[pathname.includes('agent') ? 'agent_selected' : 'agent']}`}>
-            <Link href="/agent" rel="noopener noreferrer" style={{textDecoration: 'none'}}>   
+            <Link href="/agent" rel="noopener noreferrer" style={{textDecoration: 'none', color: 'inherit'}}>   
               Agent
             </Link>
           </span>
           <span className={`${styles[pathname.includes('asset') ? 'asset_selected' : 'asset']}`}>
-            <Link href="/asset" rel="noopener noreferrer" style={{textDecoration: 'none'}}>   
+            <Link href="/asset" rel="noopener noreferrer" style={{textDecoration: 'none', color: 'inherit'}}>   
               Assets
             </Link>
           </span>
