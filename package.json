@@ -1,0 +1,56 @@
+{
+  "name": "runes20",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev -p 2800",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@chakra-ui/icons": "^2.1.1",
+    "@chakra-ui/next-js": "^2.2.0",
+    "@chakra-ui/react": "^2.8.2",
+    "@emotion/react": "^11.11.3",
+    "@emotion/styled": "^11.11.0",
+    "@pythnetwork/pyth-sdk-solidity": "^2.4.0",
+    "@rainbow-me/rainbowkit": "^2.0.0",
+    "@tanstack/react-query": "^5.22.2",
+    "@vercel/blob": "^0.27.1",
+    "@wagmi/connectors": "^4.1.10",
+    "@wagmi/core": "^2.6.1",
+    "base-x": "^5.0.0",
+    "bignumber.js": "^9.1.2",
+    "bootstrap": "^5.3.3",
+    "browser-env": "^3.3.0",
+    "copy-to-clipboard": "^3.3.3",
+    "crc32": "^0.2.2",
+    "framer-motion": "^11.0.3",
+    "lightweight-charts": "^4.1.6",
+    "moment": "^2.30.1",
+    "navigator": "^1.0.1",
+    "next": "14.1.0",
+    "query-string": "^8.1.0",
+    "react": "^18",
+    "react-device-info": "^0.0.1",
+    "react-dom": "^18",
+    "react-icons": "^5.0.1",
+    "react-router-dom": "^6.21.3",
+    "react-spinners": "^0.13.8",
+    "sharp": "^0.33.4",
+    "twitter-api-sdk": "^1.2.1",
+    "typed.js": "^2.1.0",
+    "viem": "^2.7.12",
+    "wagmi": "^2.5.7"
+  },
+  "devDependencies": {
+    "encoding": "^0.1.13",
+    "pino-pretty": "^10.3.1"
+  },
+  "browserslist": [
+    "> 0.2%",
+    "not dead",
+    "not IE 11"
+  ]
+}

@@ -1,0 +1,398 @@
+  .section_1 {
+    width: 100%;
+    /* background: url(../../assets/img/background_img.png) 100% no-repeat; */
+    background: hsl(var(--background-head));
+  }
+  
+  .block_9 {
+    /* align-items: center; */
+    width: 80%;
+    /* height: 98px; */
+    margin: 10px 0 0 0;
+  }
+  
+  .image_1 {
+    width: 60px;
+    height: 60px; 
+    background: url(../../assets/img/logo_wizard.png)
+      100% no-repeat;
+    background-size: 100%;
+  }
+
+  .logo_name {
+    font-family: "Creepster", system-ui;
+    font-weight: bold;
+    font-style: normal;
+    font-size: 20px;
+    color: white;
+    margin-left: 5px;
+  }
+
+  .menu {
+    width: 500px;
+  }
+
+  .menu_open {
+    display: none;
+  }
+  
+  .menu_close {
+    display: none;
+  }
+
+  .competition_disable {
+    position: relative;
+    width: 80px;
+    /* height: 13px; */
+    overflow-wrap: break-word;
+    color: gray;
+    font-size: 18px;
+    font-family: PingFangSC-Semibold;
+    font-weight: 600;
+    text-align: center;
+    white-space: nowrap;
+  }
+
+  .coming_soon {
+    position: absolute;
+    top: -5px;
+    right: -80px;
+    background-color: rgba(255, 0, 0, 0.4);
+    color: white;
+    padding: 2px;
+    font-size: 10px;
+    border-radius: 5px;
+  }
+
+  .competition {
+    width: 80px;
+    /* height: 13px; */
+    overflow-wrap: break-word;
+    color: rgba(255, 255, 255, 1);
+    font-size: 18px;
+    font-family: PingFangSC-Semibold;
+    font-weight: 600;
+    text-align: center;
+    white-space: nowrap;
+  }
+
+  .competition:hover {
+    color: rgba(2, 229, 254, 1);
+  }
+
+  .competition_selected {
+    width: 80px;
+    overflow-wrap: break-word;
+    color: rgba(2, 229, 254, 1);
+    font-size: 18px;
+    font-family: PingFangSC-Semibold;
+    font-weight: 600;
+    text-align: center;
+    white-space: nowrap;
+  }
+  
+  .asset {
+    width: 80px;
+    overflow-wrap: break-word;
+    color: rgba(255, 255, 255, 1);
+    font-size: 18px;
+    font-family: PingFangSC-Regular;
+    font-weight: NaN;
+    text-align: center;
+    white-space: nowrap;
+  }
+
+  .asset:hover {
+    color: rgba(2, 229, 254, 1);
+  }
+
+  .asset_selected {
+    width: 80px;
+    overflow-wrap: break-word;
+    color: rgba(2, 229, 254, 1);
+    font-size: 18px;
+    font-family: PingFangSC-Regular;
+    font-weight: NaN;
+    text-align: center;
+    white-space: nowrap;
+  }
+
+  .agent {
+    width: 80px;
+    overflow-wrap: break-word;
+    color: rgba(255, 255, 255, 1);
+    font-size: 18px;
+    font-family: PingFangSC-Regular;
+    font-weight: NaN;
+    text-align: center;
+    white-space: nowrap;
+  }
+
+  .agent:hover {
+    color: rgba(2, 229, 254, 1);
+  }
+
+  .agent_selected {
+    width: 80px;
+    overflow-wrap: break-word;
+    color: rgba(2, 229, 254, 1);
+    font-size: 18px;
+    font-family: PingFangSC-Regular;
+    font-weight: NaN;
+    text-align: center;
+    white-space: nowrap;
+  }
+
+  .leaderboard {
+    width: 80px;
+    overflow-wrap: break-word;
+    color: rgba(255, 255, 255, 1);
+    font-size: 18px;
+    font-family: PingFangSC-Regular;
+    font-weight: NaN;
+    text-align: center;
+    white-space: nowrap;
+  }
+
+  .leaderboard:hover {
+    color: rgba(2, 229, 254, 1);
+  }
+
+  .leaderboard_selected {
+    width: 80px;
+    overflow-wrap: break-word;
+    color: rgba(2, 229, 254, 1);
+    font-size: 18px;
+    font-family: PingFangSC-Regular;
+    font-weight: NaN;
+    text-align: center;
+    white-space: nowrap;
+  }
+  
+  .text_3 {
+    width: 109px;
+    height: 18px;
+    overflow-wrap: break-word;
+    color: rgba(153, 153, 153, 1);
+    font-size: 18px;
+    font-family: PingFangSC-Regular;
+    font-weight: NaN;
+    text-align: center;
+    white-space: nowrap;
+    /* line-height: 60px; */
+    margin: 44px 0 0 0;
+  }
+  
+  .text-wrapper_1 {
+    background-size: 100% 100%;
+  }
+  
+  .image_3 {
+    width: 100%;
+    height: 1px;
+    margin: 11px 0 0 0;
+  }
+
+  .connect-button {
+    background-color: blue;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+  }
+
+  @media (max-width: 800px) {
+    .image_1 {
+      width: 50px;
+      height: 50px; 
+      background: url(../../assets/img/logo_mobile.png)
+        100% no-repeat;
+      background-size: 100%;
+      margin: 0 0 0 0;
+    }
+    
+    .menu {
+      display: none;
+    }
+
+    .text-wrapper_1 {
+      display: none;
+    }
+
+    .block_9 {
+      width: 95%;
+      height: 50px;
+      align-items: center;
+    }
+
+    .menu_open {
+      display: block;
+      width: 21px;
+      height: 12px;
+      margin: 0 0 0 -9px;
+    }
+    
+    .menu_close {
+      display: block;
+      width: 21px;
+      height: 21px;
+      margin: 0 0 0 -9px;
+    }
+
+    .menu_mobile {
+      width: 90%;
+      background: transparent;
+      margin: 0 0 0 31px;
+      z-index: 1;
+    }
+
+    .auction_selected_mobile {
+      width: 40px;
+      height: 14px;
+      overflow-wrap: break-word;
+      color: rgba(2, 229, 254, 1);
+      font-size: 18px;
+      font-family: PingFangSC-Semibold;
+      font-weight: 600;
+      text-align: left;
+      white-space: nowrap;
+      line-height: 30px;
+      margin: 15px 0 0 0;
+    }
+
+    .auction_mobile {
+      width: 40px;
+      height: 14px;
+      overflow-wrap: break-word;
+      color: rgba(255, 255, 255, 1);
+      font-size: 18px;
+      font-family: PingFangSC-Semibold;
+      font-weight: 600;
+      text-align: left;
+      white-space: nowrap;
+      line-height: 30px;
+      margin: 15px 0 0 0;
+    }
+    
+    .image_4 {
+      width: 100%;
+      height: 1px;
+      margin: 20px 0 0 0;
+    }
+    
+    .asset_mobile {
+      width: 130px;
+      height: 18px;
+      overflow-wrap: break-word;
+      color: rgba(255, 255, 255, 1);
+      font-size: 18px;
+      font-family: PingFangSC-Semibold;
+      font-weight: 600;
+      text-align: left;
+      white-space: nowrap;
+      line-height: 30px;
+      margin: 15px 0 0 0;
+    }
+
+    .asset_selected_mobile {
+      width: 130px;
+      height: 18px;
+      overflow-wrap: break-word;
+      color: rgba(2, 229, 254, 1);
+      font-size: 18px;
+      font-family: PingFangSC-Semibold;
+      font-weight: 600;
+      text-align: left;
+      white-space: nowrap;
+      line-height: 30px;
+      margin: 15px 0 0 0;
+    }
+    
+    .image_5 {
+      width: 100%;
+      height: 1px;
+      margin: 15px 0 0 0;
+    }
+    
+    .text_3 {
+      width: 112px;
+      height: 18px;
+      overflow-wrap: break-word;
+      color: rgba(153, 153, 153, 1);
+      font-size: 18px;
+      font-family: PingFangSC-Semibold;
+      font-weight: 600;
+      text-align: left;
+      white-space: nowrap;
+      line-height: 30px;
+      margin: 11px 0 0 0;
+    }
+    
+    .connect_btn {
+      width: 90%;
+      height: 50px;
+      background: url(../../assets/mobileImg/connect_button.png) 100% no-repeat;
+      background-size: 100% 100%;
+      margin: 11px 0 0 0;
+    }
+    
+    .connect_btn_text {
+      overflow-wrap: break-word;
+      color: rgba(2, 3, 3, 1);
+      font-size: 15px;
+      font-family: PingFangSC-Semibold;
+      font-weight: 600;
+      text-align: left;
+      white-space: nowrap;
+    }
+
+    .address_btn {
+      width: 50%;
+      height: 50px;
+      background-color: transparent;
+      margin: 11px 0 0 0;      
+    }
+
+    .address_btn_text {
+      overflow-wrap: break-word;
+      color: white;
+      font-size: 15px;
+      font-family: PingFangSC-Semibold;
+      font-weight: 600;
+      text-align: left;
+      white-space: nowrap;
+      margin-left: 5px;
+      margin-right: 5px;
+    }
+    
+    .image_6 {
+      width: 100%;
+      height: 1px;
+      margin: 16px 0 0 0;
+    }
+    
+    .wallet {
+      height: 50px;
+      width: 325px;
+      margin: 21px 0 21px 25px;
+    }
+
+    .image_wallet {
+      width: 24px;
+      height: 24px;
+    }
+  }
+  
+  @media (min-width: 801px) and (max-width: 1200px) {
+    .image_1 {
+      width: 60px;
+      height: 60px; 
+    }
+
+    .block_9 {
+      width: 95%;
+    }
+
+    .menu {
+      width: 300px;
+    }
+  }
