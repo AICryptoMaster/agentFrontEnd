@@ -1,5 +1,3 @@
-// app/api/tts/route.js
-import OpenAI from "openai";
 import { NextResponse } from 'next/server';
 import { put } from '@vercel/blob';
 

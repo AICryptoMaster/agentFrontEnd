@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation';
-import AssetCard from './components/AssetCard';
+import AssetCard from './component/AssetCard';
 import styles from './page.module.css';
 
 import {
