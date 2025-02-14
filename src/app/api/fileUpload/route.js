@@ -7,7 +7,7 @@ export async function POST(req) {
     const file = formData.get('file');
     const fileType = formData.get('fileType'); // 'logo' or 'player' or 'attach'
     const fileHash = formData.get('fileHash');
-    
+    console.log(file.name, fileType, fileHash);
     if (!file) {
       return NextResponse.json(
         { error: 'No file received' },
@@ -44,6 +44,7 @@ export async function POST(req) {
     // Check if file already exists in Vercel Blob Storage
     try {
       const response = await fetch(`https://ow4jqcktznwgjxis.public.blob.vercel-storage.com/${filePath}`, { method: "HEAD" });
+      console.log("file's been exist:", file.name);
       if (response.status === 200) {
         return NextResponse.json(
           { error: 'File with this name already exists' },

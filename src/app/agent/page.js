@@ -880,7 +880,7 @@ export default function Page() {
 
     try {
       // Upload agent file
-      const agentFileUrl = await uploadToServer(selectedAgentFile, 'content', agentHashValue);
+      const agentFileUrl = await uploadToServer(selectedAgentFile, 'agent', agentHashValue);
       if (agentFileUrl) {
         setAgentUrl(agentFileUrl);
       }
