@@ -78,7 +78,9 @@ export default function Page() {
   const [agentName, setAgentName] = useState('');
   const [agentInfo, setAgentInfo] = useState('');
   const [downlink, setDownlink] = useState('');
-  const [hashValue, setHashValue] = useState("");
+  const [agentHashValue, setAgentHashValue] = useState("");
+  const [logoHashValue, setLogoHashValue] = useState("");
+  const [attachHashValue, setAttachHashValue] = useState("");
   const [maxMints, setMaxMints] = useState(0);
   const [mintPeroid, setMintPeroid] = useState(0);
   const [userBasePoints, setUserBasePoints] = useState(0);
@@ -136,14 +138,27 @@ export default function Page() {
   const { isOpen: isOpenMint, onOpen: onOpenMint, onClose: onCloseMint } = useDisclosure()
   const { isOpen: isOpenRefSetting, onOpen: onOpenRefSetting, onClose: onCloseRefSetting } = useDisclosure()
 
-  const [selectedFileName, setSelectedFileName] = useState('');
-  const fileInputRef = useRef(null);
+  const [selectedAgentFile, setSelectedAgentFile] = useState(null);
+  const [selectedAgentName, setSelectedAgentName] = useState('');
+  const agentFileInputRef = useRef(null);
+
   const [selectedLogoFile, setSelectedLogoFile] = useState(null);
   const [logoPreview, setLogoPreview] = useState('');
   const logoInputRef = useRef(null);
 
+  const [selectedAttachFile, setSelectedAttachFile] = useState(null);
+  const [selectedAttachName, setSelectedAttachName] = useState('');
+  const attachFileInputRef = useRef(null);
+
   const [logoUrl, setLogoUrl] = useState('');
-  const [fileUrl, setFileUrl] = useState('');
+  const [agentUrl, setAgentUrl] = useState('');
+  const [attachUrl, setAttachUrl] = useState('');
+
+  // Add new state for agent type
+  const [agentType, setAgentType] = useState('Soccer Player');
+
+  // Add new state for X account
+  const [xAccount, setXAccount] = useState('');
 
   //console.log('#######', account, address)
   useEffect(() => {
@@ -453,7 +468,7 @@ export default function Page() {
   }, [updateOneAsset])
 
   const updateAgentName = (name) => {
-    if (name.length > 12 || (!/^[a-zA-Z0-9]+$/.test(name) && name.length > 0)) return;
+    if (name.length > 18 || (!/^[a-zA-Z_0-9]+$/.test(name) && name.length > 0)) return;
 
     setAgentName(name.toUpperCase());
   }
@@ -469,66 +484,70 @@ export default function Page() {
       });
       return;
     }
-    const content = `🔥🔥 MEMECOIN SEASON 🔥🔥 \n\nFair314 is a brand-new memecoin launch platform that inherits the strengths of INSCRIPTION🔯 and the X314 protocol📜. \n\nBoth launchers and traders will receive incentives. \n\nCome on!🚀🚀🚀 \n\n👉 https://fair314.xyz?ref=${myRefCode}`;
+    const content = `🔥🔥⚔️ Agent Battle ⚔️🔥🔥 \n\ \n\nCome on!🚀🚀🚀 \n\n👉 https://battle.cryptometa.ai?ref=${myRefCode}`;
     const retweetLink = `https://twitter.com/intent/tweet?text=${encodeURI(content)}`; 
     window.open(retweetLink, '_tab');
   }
 
   const launchToken = async () => {
-    console.log(agentName, minMints, maxMints, mintPeroid, launcherAddr);
+    console.log(agentType, agentName, agentInfo, xAccount);
 
+    try {
+      await uploadAllFiles();
+    } catch (error) {
+      return;
+    }
     setStartLaunching(true);
     //console.log(config, address, blastContractAddr, deployContractAddr)
-    if (paidToken != null) {
-      readContract(config, {
-        address: paidToken.address,
-        abi: erc20Abi,
-        functionName: 'allowance',
-        args: [address, deployContractAddr]
-      }).then(async (result) => { 
-        const approvedAmount = new BigNumber(result);
-        let approveResult = true;
-        if (approvedAmount.isLessThan(feePerLaunch)) {
-          approveResult = await executeTx({
-            account: address,
-            address: paidToken.address,
-            abi: erc20Abi,
-            functionName: 'approve',
-            args: [deployContractAddr, '0x' + feePerLaunch.toString(16)],
-          }, "Approved successfully", "Fail to approve");    
-        }
-        if (approveResult) {
-          const launchResult = await executeTx({
-            account: address,
-            address: deployContractAddr,
-            abi: DeployFactory.abi,
-            functionName: 'launchToken',
-            args: [agentName, minMints, maxMints, mintPeroid, launcherAddr],
-          }, "Launch token successfully", "Fail to launch token");
-          if (launchResult) {
-            setUpdateAssets(!updateAssets);
-            setUpdatePoints(!updatePoints);
-            onClose();
-          }
-        }
-        setStartLaunching(false);
-      })
-    } else {
-      const launchResult = await executeTx({
-        account: address,
-        address: deployContractAddr,
-        abi: DeployFactory.abi,
-        functionName: 'launchToken',
-        args: [agentName, minMints, maxMints, mintPeroid, launcherAddr],
-        value: '0x' + feePerLaunch.toString(16)
-      }, "Launch token successfully", "Fail to launch token");
-      if (launchResult) {
-        setUpdateAssets(!updateAssets);
-        setUpdatePoints(!updatePoints);
-        onClose();
-      }
-      setStartLaunching(false);
-    }
+    // if (paidToken != null) {
+    //   readContract(config, {
+    //     address: paidToken.address,
+    //     abi: erc20Abi,
+    //     functionName: 'allowance',
+    //     args: [address, deployContractAddr]
+    //   }).then(async (result) => { 
+    //     const approvedAmount = new BigNumber(result);
+    //     let approveResult = true;
+    //     if (approvedAmount.isLessThan(feePerLaunch)) {
+    //       approveResult = await executeTx({
+    //         account: address,
+    //         address: paidToken.address,
+    //         abi: erc20Abi,
+    //         functionName: 'approve',
+    //         args: [deployContractAddr, '0x' + feePerLaunch.toString(16)],
+    //       }, "Approved successfully", "Fail to approve");    
+    //     }
+    //     if (approveResult) {
+    //       const launchResult = await executeTx({
+    //         account: address,
+    //         address: deployContractAddr,
+    //         abi: DeployFactory.abi,
+    //         functionName: 'launchToken',
+    //         args: [agentType, agentName, agentHashValue, logoHashValue, attachHashValue, agentInfo, xAccount],
+    //       }, "Launch token successfully", "Fail to launch token");
+    //       if (launchResult) {
+    //         setUpdateAssets(!updateAssets);
+    //         setUpdatePoints(!updatePoints);
+    //         onClose();
+    //       }
+    //     }
+    //     setStartLaunching(false);
+    //   })
+    // } else {
+    //   const launchResult = await executeTx({
+    //     account: address,
+    //     address: deployContractAddr,
+    //     abi: DeployFactory.abi,
+    //     functionName: 'launchAgent',
+    //     args: [agentType, agentName, agentHashValue, logoHashValue, attachHashValue, agentInfo, xAccount],
+    //     value: '0x' + feePerLaunch.toString(16)
+    //   }, "Launch token successfully", "Fail to launch token");
+    //   if (launchResult) {
+    //     setUpdateAssets(!updateAssets);
+    //     onClose();
+    //   }
+    //   setStartLaunching(false);
+    // }
   }
 
   const mint = () => {
@@ -712,11 +731,12 @@ export default function Page() {
     return hashHex;
   };
 
-  const uploadToServer = async (file, fileType) => {
+  const uploadToServer = async (file, fileType, fileHash) => {
     try {
       const formData = new FormData();
       formData.append('file', file);
       formData.append('fileType', fileType);
+      formData.append('fileHash', fileHash);
 
       const response = await fetch('/api/fileUpload', {
         method: 'POST',
@@ -725,7 +745,7 @@ export default function Page() {
 
       const data = await response.json();
       
-      if (!response.ok) {
+      if (!response.ok && response.status != 409) {
         throw new Error(data.error || 'Upload failed');
       }
 
@@ -739,7 +759,7 @@ export default function Page() {
         position: 'bottom-right',
         isClosable: true,
       });
-      return null;
+      throw new Error('Upload failed');
     }
   };
 
@@ -771,27 +791,24 @@ export default function Page() {
       }
 
       setSelectedLogoFile(file);
+      const hash = await calculateFileHash(file);
+      setLogoHashValue(hash);
+
       const reader = new FileReader();
       reader.onload = (e) => {
         setLogoPreview(e.target.result);
       };
       reader.readAsDataURL(file);
-
-      // 上传到服务器
-      const logoUrl = await uploadToServer(file, 'logo');
-      if (logoUrl) {
-        // 存储 logo URL 到状态中（如果需要）
-        setLogoUrl(logoUrl);
-      }
     }
   };
 
-  const handleFileChange = async (event) => {
+  const handleAgentFileChange = async (event) => {
     const file = event.target.files[0];
     if (file) {
-      setSelectedFileName(file.name);
+      setSelectedAgentFile(file);
+      setSelectedAgentName(file.name);
       const hash = await calculateFileHash(file);
-      setHashValue(hash);
+      setAgentHashValue(hash);
       
       // 读取文件内容
       const reader = new FileReader();
@@ -799,15 +816,104 @@ export default function Page() {
         setAgentInfo(e.target.result);
       };
       reader.readAsText(file);
-
-      // 上传到服务器
-      const fileUrl = await uploadToServer(file, 'content');
-      if (fileUrl) {
-        // 存储文件 URL 到状态中（如果需要）
-        setFileUrl(fileUrl);
-      }
     }
   };
+
+  const handleAttachedFileChange = async (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      setSelectedAttachFile(file);
+      setSelectedAttachName(file.name);
+      const hash = await calculateFileHash(file);
+      setAttachHashValue(hash);
+      
+      // 读取文件内容
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        setAgentInfo(e.target.result);
+      };
+      reader.readAsText(file);
+    }
+  };
+
+  const uploadAllFiles = async () => {
+    if (selectedAgentFile == null) {
+      toast({
+        title: 'No agent file',
+        description: "Agent file is required.",
+        status: 'error',
+        position: 'bottom-right',
+        isClosable: true,
+      });
+      throw new Error('No Agent File');
+    }
+    if (selectedLogoFile == null) {
+      toast({
+        title: 'No Logo file',
+        description: "Logo file is required.",
+        status: 'error',
+        position: 'bottom-right',
+        isClosable: true,
+      });
+      throw new Error('No Logo File');
+    }
+  
+    // Show uploading toast
+    const uploadingToast = toast({
+      title: 'Uploading files',
+      description: "Please wait while files are being uploaded...",
+      status: 'info',
+      position: 'bottom-right',
+      duration: null,
+      isClosable: false
+    });
+
+    try {
+      // Upload agent file
+      const agentFileUrl = await uploadToServer(selectedAgentFile, 'content', agentHashValue);
+      if (agentFileUrl) {
+        setAgentUrl(agentFileUrl);
+      }
+
+      // Upload logo file 
+      const logoUrl = await uploadToServer(selectedLogoFile, 'logo', logoHashValue);
+      if (logoUrl) {
+        setLogoUrl(logoUrl);
+      }
+
+      // Upload attachment if exists
+      if (selectedAttachFile != null) {
+        const fileUrl = await uploadToServer(selectedAttachFile, 'attachment', attachHashValue);
+        if (fileUrl) {
+          setAttachUrl(fileUrl);
+        }
+      }
+
+      // Close uploading toast and show success
+      toast.close(uploadingToast);
+      toast({
+        title: 'Upload complete',
+        description: "All files uploaded successfully",
+        status: 'success',
+        position: 'bottom-right',
+        duration: 3000,
+        isClosable: true
+      });
+
+    } catch (error) {
+      // Close uploading toast and show error
+      toast.close(uploadingToast);
+      toast({
+        title: 'Upload failed',
+        description: error.message || "Failed to upload files",
+        status: 'error',
+        position: 'bottom-right',
+        duration: 3000,
+        isClosable: true
+      });
+      throw error;
+    }
+  }
 
   return (
     <Box className={`${styles.page} flex-col`}>
@@ -1155,33 +1261,27 @@ export default function Page() {
             Launch Agent<span style={{fontSize: '12px'}}>({`${feePerLaunch.shiftedBy(-18).toString()} ${paidToken?.symbol} / Launch`})</span>
           </ModalHeader>
           <ModalBody pb={6} style={{background: 'rgb(20, 20, 20)'}}>
+            
             <FormControl>
-              <FormLabel className={`${styles['form_content']}`}>Agent name</FormLabel>
-              <Input className={`${styles['form_content']}`} value={agentName} onChange={(e) => updateAgentName(e.target.value)}/>
-              <FormLabel className={`${styles['form_tip']}`}>
-                Length 3 ~ 18, characters composed of A~Z0~9. Token uses the same name.
-              </FormLabel>
+              <FormLabel className={`${styles['form_content']}`}>Agent Type</FormLabel>
+              <Select 
+                className={`${styles['form_content']}`}
+                value={agentType}
+                onChange={(e) => setAgentType(e.target.value)}
+              >
+                <option value="SoccerPlayer">Soccer Player</option>
+                <option value="Trader">Trader</option>
+                <option value="Entertainment">Entertainment</option>
+              </Select>
             </FormControl>
 
             <FormControl mt={4}>
-              <FormLabel className={`${styles['form_content']}`}>Agent File</FormLabel>              
-              <Box className={`${styles['agent_file']} flex-col justify-center align-center`} onClick={() => handleFileChange()}>
-                <span className={`${styles['text_agent_file']}`}>
-                  Upload Agent File
-                </span>
-              </Box>
-              {selectedFileName && (
-                <>
-                  <FormLabel className={`${styles['form_tip']}`}>
-                    File: {selectedFileName}
-                  </FormLabel>
-                  <FormLabel className={`${styles['form_tip']}`}>
-                    Hash: {hashValue}
-                  </FormLabel>
-                </>
-              )}
+              <FormLabel className={`${styles['form_content']}`}>Agent name</FormLabel>
+              <Input className={`${styles['form_content']}`} value={agentName} onChange={(e) => updateAgentName(e.target.value)}/>
+              <FormLabel className={`${styles['form_tip']}`}>
+                Length 3 ~ 18, characters composed of A~Z_0~9. Token uses the same name.
+              </FormLabel>
             </FormControl>
-
 
             <FormControl mt={4}>
               <FormLabel className={`${styles['form_content']}`}>Agent Logo</FormLabel>              
@@ -1205,7 +1305,31 @@ export default function Page() {
             </FormControl>
 
             <FormControl mt={4}>
-              <FormLabel className={`${styles['form_content']}`}>Description</FormLabel>             
+              <FormLabel className={`${styles['form_content']}`}>Agent File(Core Agent Program)</FormLabel>              
+              <Box className={`${styles['agent_file']} flex-col justify-center align-center`} onClick={() => handleAgentFileChange()}>
+                <span className={`${styles['text_agent_file']}`}>
+                  Upload Agent File
+                </span>
+              </Box>
+              <FormLabel className={`${styles['form_tip']}`}>
+              This file must NOT be compressed.
+              </FormLabel>
+            </FormControl>
+
+            <FormControl mt={4}>
+              <FormLabel className={`${styles['form_content']}`}>Attached File(Used for assisting Agent, optional)</FormLabel>              
+              <Box className={`${styles['agent_file']} flex-col justify-center align-center`} onClick={() => handleAttachedFileChange()}>
+                <span className={`${styles['text_agent_file']}`}>
+                  Upload Attached File
+                </span>
+              </Box>
+              <FormLabel className={`${styles['form_tip']}`}>
+              Allow uploading after compression.
+              </FormLabel>
+            </FormControl>
+
+            <FormControl mt={4}>
+              <FormLabel className={`${styles['form_content']}`}>Description (optional)</FormLabel>             
               <Textarea 
                 className={`${styles['form_content']}`} 
                 value={agentInfo} 
@@ -1221,6 +1345,17 @@ export default function Page() {
                 {agentInfo.length}/100 characters
               </FormLabel>
             </FormControl>
+
+            <FormControl mt={4}>
+              <FormLabel className={`${styles['form_content']}`}>X Account (optional)</FormLabel>
+              <Input 
+                className={`${styles['form_content']}`}
+                value={xAccount}
+                onChange={(e) => setXAccount(e.target.value)}
+                placeholder="@username"
+              />
+            </FormControl>
+
           </ModalBody>
 
           <ModalFooter style={{background: 'rgb(20, 20, 20)'}}>
@@ -1297,9 +1432,9 @@ export default function Page() {
 
       <input
         type="file"
-        ref={fileInputRef}
+        ref={agentFileInputRef}
         style={{ display: 'none' }}
-        onChange={handleFileChange}
+        onChange={handleAgentFileChange}
         accept="*.*"
       />
 
@@ -1309,6 +1444,15 @@ export default function Page() {
         style={{ display: 'none' }}
         onChange={handleLogoChange}
         accept="image/*"
+      />
+
+
+      <input
+        type="file"
+        ref={attachFileInputRef}
+        style={{ display: 'none' }}
+        onChange={handleAttachedFileChange}
+        accept="*/*"
       />
     </Box>
   );
