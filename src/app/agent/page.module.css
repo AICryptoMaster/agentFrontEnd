@@ -657,6 +657,11 @@
   font-size: 12;
 }
 
+.file_name {
+  color: gray; 
+  font-size: 12;
+}
+
 .claim_amount {
   width: 80%;
   height: 26px;

@@ -33,6 +33,7 @@ import {
   Tooltip,
   Box,
   Textarea,
+  HStack
 } from '@chakra-ui/react'
 import {
   NumberInput,
@@ -763,6 +764,18 @@ export default function Page() {
     }
   };
 
+  const handleLogoClick = () => {
+    logoInputRef.current.click();
+  };
+
+  const handleAgentFileClick = () => {
+    agentFileInputRef.current.click();
+  };
+
+  const handleAttachFileClick = () => {
+    attachFileInputRef.current.click();
+  };
+
   const handleLogoChange = async (event) => {
     const file = event.target.files[0];
     if (file) {
@@ -803,19 +816,23 @@ export default function Page() {
   };
 
   const handleAgentFileChange = async (event) => {
+    console.log(event)
     const file = event.target.files[0];
+    if (file.name.indexOf('rar') > 0 || file.name.indexOf('zip') > 0) {
+      toast({
+        title: 'File Unsupported',
+        description: 'Compressed file is NOT supported.',
+        status: 'error',
+        position: 'bottom-right',
+        isClosable: true,
+      });
+      return;
+    }
     if (file) {
       setSelectedAgentFile(file);
       setSelectedAgentName(file.name);
       const hash = await calculateFileHash(file);
-      setAgentHashValue(hash);
-      
-      // 读取文件内容
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        setAgentInfo(e.target.result);
-      };
-      reader.readAsText(file);
+      setAgentHashValue(hash);      
     }
   };
 
@@ -826,13 +843,6 @@ export default function Page() {
       setSelectedAttachName(file.name);
       const hash = await calculateFileHash(file);
       setAttachHashValue(hash);
-      
-      // 读取文件内容
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        setAgentInfo(e.target.result);
-      };
-      reader.readAsText(file);
     }
   };
 
@@ -1285,7 +1295,7 @@ export default function Page() {
 
             <FormControl mt={4}>
               <FormLabel className={`${styles['form_content']}`}>Agent Logo</FormLabel>              
-              <Box className={`${styles['agent_file']} flex-col justify-center align-center`} onClick={() => handleLogoChange()}>
+              <Box className={`${styles['agent_file']} flex-col justify-center align-center`} onClick={handleLogoClick}>
                 <span className={`${styles['text_agent_file']}`}>Upload Agent Logo</span>
               </Box>
               {
@@ -1306,11 +1316,14 @@ export default function Page() {
 
             <FormControl mt={4}>
               <FormLabel className={`${styles['form_content']}`}>Agent File(Core Agent Program)</FormLabel>              
-              <Box className={`${styles['agent_file']} flex-col justify-center align-center`} onClick={() => handleAgentFileChange()}>
+              <Box className={`${styles['agent_file']} flex-col justify-center align-center`} onClick={handleAgentFileClick}>
                 <span className={`${styles['text_agent_file']}`}>
-                  Upload Agent File
-                </span>
-              </Box>
+                    Upload Agent File
+                  </span>
+              </Box>  
+              <FormLabel className={`${styles['file_name']}`}>
+                {selectedAgentName}
+              </FormLabel>
               <FormLabel className={`${styles['form_tip']}`}>
               This file must NOT be compressed.
               </FormLabel>
@@ -1318,11 +1331,14 @@ export default function Page() {
 
             <FormControl mt={4}>
               <FormLabel className={`${styles['form_content']}`}>Attached File(Used for assisting Agent, optional)</FormLabel>              
-              <Box className={`${styles['agent_file']} flex-col justify-center align-center`} onClick={() => handleAttachedFileChange()}>
+              <Box className={`${styles['agent_file']} flex-col justify-center align-center`} onClick={handleAttachFileClick}>
                 <span className={`${styles['text_agent_file']}`}>
                   Upload Attached File
                 </span>
               </Box>
+              <FormLabel className={`${styles['file_name']}`}>
+                {selectedAttachName}
+              </FormLabel>
               <FormLabel className={`${styles['form_tip']}`}>
               Allow uploading after compression.
               </FormLabel>
